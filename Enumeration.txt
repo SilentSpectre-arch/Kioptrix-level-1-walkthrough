@@ -1,0 +1,121 @@
+IP_Target= 192.168.56.101
+
+Command: nmap -T4 -p- 192.168.56.101
+
+[Finding]
+
+22/tcp open
+
+80/tcp open
+
+111/tcp open
+
+139/tcp open
+
+443/tcp open
+
+32768/tcp open
+
+Command: nmap -T4 -p 22,80,111,139,443,32768 -A
+
+[Finding]
+
+22/tcp:
+-OpenSSH 2.9p2
+- Server supports SSHv1
+
+80/tcp:
+- Apache httpd 1.3.20
+- mod_ssl 2.8.4
+- OpenSSL 0.9.6b
+- Potentially risky methods: TRACE
+
+111/tcp open rpcbind
+32768/tcp open status
+
+139/tcp:
+- Samba
+
+443/tcp:
+- SSLv2 supported
+
+URL:
+- http://192.168.56.101/
+
+[Finding]
+- Default page test
+- Red Hat Linux
+
+URL:
+- http://192.168.56.101/manual/mod/core.html#documentroot
+
+[Finding]
+- 404
+- Apache 1.3.20
+
+URL:
+- http://192.168.56.101/manual/
+
+[Finding]
+- 200
+- Direcotory listing
+- Direcotory > /manual/mod/
+
+
+URL:
+- http://192.168.56.101/manual/mod/
+
+[Finding]
+- 200
+- Direcotory listing
+- mod_perl.html
+- mod_perl/
+- mod_ssl/
+
+URL:
+- http://192.168.56.101/manual/mod/mod_ssl/
+
+[Finding]
+- mod_ssl 2.8 documentation accessible
+
+
+Command: curl -I http://192.168.56.101
+[Finding]
+- Apache 1.3.20
+- RedHat
+- mod_ssl 2.8.4
+- OpenSSL 0.9.6b
+
+Command: whatweb http://192.168.56.101
+[Finding]
+- Apache 1.3.20
+- mod_ssl 2.8.4
+- OpenSSL 0.9.6b
+- Red Hat Linux
+
+
+Command: nikto -h http://192.168.56.101
+[Finding]
+- Apache 1.3.20
+- Red-Hat/Linux
+- mod_ssl 2.8.4
+- OpenSSL 0.9.6b
+
+Potential vulnerabilities:
+- mod_ssl 2.8.4 > remote buffer overflow / possible remote shell
+- Apache 1.3.20 > local buffer overflow,mod_rewrite/ mod_cgi overflow
+
+Command: nmap -T4 -sV -p 80,443 192.168.56.101
+[Finding]
+- Apache 1.3.20
+- Red-Hat/Linux
+- mod_ssl 2.8.4
+- OpenSSL 0.9.6b
+
+Command: nmap --script ssl-enum-ciphers -p 443 192.168.56.101
+[Finding]
+- SSLv3
+- TLS 1.0
+- SSLv3 > CVE-2014-3566
+- RC4
+- MD5
