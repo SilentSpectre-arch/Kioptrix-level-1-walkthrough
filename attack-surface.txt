@@ -1,0 +1,15 @@
+                    Kioptrix
+                       │
+       ┌───────────────┼───────────────┐
+       │               │               │
+      Web             SMB             RPC
+       │               │               │
+   80 / 443           139          111 / 32768
+       │               │               │
+ Apache 1.3.20       Samba          rpcbind
+ mod_ssl 2.8.4
+ OpenSSL 0.9.6b
+ SSLv2 supported
+       │
+       ▼
+  🔥 HIGH PRIORITY
